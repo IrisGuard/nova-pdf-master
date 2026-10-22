@@ -1,0 +1,13 @@
+{
+  "name": "NOVA PDF",
+  "canonical": "https://pdf.novaecosystem.live/",
+  "generated": "2026-10-21",
+  "description": "Machine-readable index for AI agents and search crawlers.",
+  "documents": [
+    { "id": "summary", "title": "Product summary", "url": "https://pdf.novaecosystem.live/ai-summary.json", "type": "application/json" },
+    { "id": "tools", "title": "Tool catalogue", "url": "https://pdf.novaecosystem.live/ai/tools.json", "type": "application/json" },
+    { "id": "llms", "title": "LLM briefing", "url": "https://pdf.novaecosystem.live/llms.txt", "type": "text/plain" },
+    { "id": "landing", "title": "Product page", "url": "https://pdf.novaecosystem.live/", "type": "text/html" },
+    { "id": "app", "title": "Workbench", "url": "https://pdf.novaecosystem.live/app/", "type": "text/html" }
+  ]
+}

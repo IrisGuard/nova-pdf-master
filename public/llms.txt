@@ -1,0 +1,50 @@
+# NOVA PDF
+
+> NOVA PDF is a local-first PDF workstation that runs entirely in the browser. PDF.js renders
+> documents, pdf-lib writes them, and Tesseract performs OCR. Files are never uploaded; the
+> application is static and performs no telemetry calls.
+
+Canonical: https://pdf.novaecosystem.live/
+Workbench: https://pdf.novaecosystem.live/app/
+Product family: Nova Ecosystem — https://novaecosystem.live
+
+## What it does
+
+NOVA PDF provides more than 30 document operations, all executed on the user's device:
+
+- Organise: merge, split (ranges, chunks, single pages, size), extract pages, rotate, crop, resize
+  (A4/A3/A5/Letter/Legal), N-up imposition (2/4/6/9), booklet imposition.
+- Edit: text and image watermark, page numbers, headers and footers, Bates numbering, drawn or
+  uploaded signatures, stamps, annotations, AcroForm filling and flattening, metadata editing,
+  clean/repair/sanitize.
+- Convert: PDF to PNG/JPEG/WebP (up to 600 DPI), images to PDF, PDF to text, HTML, Markdown, JSON,
+  text or Markdown to PDF with Unicode and Greek support, PDF/A-2b and PDF/A-3b.
+- Optimise and secure: lossless or raster compression, grayscale conversion, OCR in eight languages
+  (English, Greek, German, French, Spanish, Italian, Portuguese, Dutch), AES-256 encryption with
+  permission flags, password removal for owned files, permanent redaction.
+- Inspect: document inspector (pages, fonts, scripts, attachments) and visual version comparison
+  with per-page pixel diff.
+
+## Privacy model
+
+- No document, filename or metadata is transmitted.
+- No account, no quota, no watermark.
+- Processing happens in the tab with WebAssembly and JavaScript.
+- Redaction rebuilds pages so removed content no longer exists in the output file.
+- OCR language models are cached locally after first use; the workbench is an installable PWA.
+
+## Technical notes
+
+- Rendering: Mozilla PDF.js 6.
+- Writing and encryption: pdf-lib (@cantoo fork) with AES-256 revision 6.
+- OCR: Tesseract.js 7 with local worker, core and language data.
+- Typography: Noto Sans embedded for Latin and Greek.
+- Supported browsers: current Chrome, Edge, Firefox and Safari on desktop.
+
+## Links
+
+- [Workbench](https://pdf.novaecosystem.live/app/)
+- [Machine summary](https://pdf.novaecosystem.live/ai-summary.json)
+- [AI index](https://pdf.novaecosystem.live/ai/index.json)
+- [Sitemap](https://pdf.novaecosystem.live/sitemap.xml)
+- Support: support@novaecosystem.live

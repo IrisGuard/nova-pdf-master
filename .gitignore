@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.wrangler/
+shots/
+tests/artifacts/
+tests/page-audit/*.png
+tests/page-audit/report.json
+*.log
+qa-*.log

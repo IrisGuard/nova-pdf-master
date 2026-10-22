@@ -1,0 +1,25 @@
+{
+  "name": "NOVA PDF — local-first PDF workstation",
+  "short_name": "NOVA PDF",
+  "description": "Merge, split, sign, redact, compress, convert and OCR PDFs entirely in your browser. Files never leave your device.",
+  "id": "/app/",
+  "start_url": "/app/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "any",
+  "background_color": "#07080b",
+  "theme_color": "#07080b",
+  "categories": ["productivity", "utilities", "business"],
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Merge PDFs", "url": "/app/?tool=merge", "description": "Combine several PDFs into one" },
+    { "name": "Compress PDF", "url": "/app/?tool=compress", "description": "Reduce file size locally" },
+    { "name": "Sign PDF", "url": "/app/?tool=sign", "description": "Draw and place a signature" }
+  ]
+}

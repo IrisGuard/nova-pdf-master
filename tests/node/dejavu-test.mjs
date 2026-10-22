@@ -1,0 +1,11 @@
+import { PDFDocument } from '@cantoo/pdf-lib';
+import fontkit from '@pdf-lib/fontkit';
+import { readFileSync } from 'node:fs';
+const doc = await PDFDocument.create();
+doc.registerFontkit(fontkit);
+const font = await doc.embedFont(readFileSync('tests/fonts/DejaVuSans.ttf'), { subset: true });
+const page = doc.addPage([595,842]);
+page.drawText('Hello Αυτό δοκιμάζει τοπική γραφή', { x: 50, y: 700, size: 12, font });
+console.log('width', font.widthOfTextAtSize('Hello', 12));
+const bytes = await doc.save();
+console.log('saved', bytes.length);

@@ -1,0 +1,30 @@
+{
+  "name": "NOVA PDF",
+  "url": "https://pdf.novaecosystem.live/",
+  "app": "https://pdf.novaecosystem.live/app/",
+  "summary": "A local-first PDF workstation with 30+ tools that runs entirely in the browser. Files are processed with PDF.js, pdf-lib and Tesseract and are never uploaded.",
+  "category": "Document productivity",
+  "pricing": { "model": "free", "currency": "EUR", "price": 0 },
+  "privacy": {
+    "uploads": false,
+    "account_required": false,
+    "watermark": false,
+    "telemetry": false,
+    "processing": "client-side"
+  },
+  "capabilities": [
+    "merge", "split", "extract", "rotate", "crop", "resize", "n-up", "booklet",
+    "watermark", "page numbers", "header and footer", "bates numbering",
+    "sign", "stamp", "annotate", "fill forms", "metadata", "clean", "repair", "sanitize",
+    "pdf to images", "images to pdf", "pdf to text", "pdf to html", "pdf to markdown",
+    "pdf to json", "markdown to pdf", "text to pdf", "pdf/a",
+    "compress", "grayscale", "ocr", "protect aes-256", "unlock", "redact",
+    "document inspector", "compare versions"
+  ],
+  "ocr_languages": ["eng", "ell", "deu", "fra", "spa", "ita", "por", "nld"],
+  "encryption": "AES-256 (PDF 2.0 revision 6)",
+  "offline": true,
+  "license": "Proprietary — Nova Ecosystem",
+  "contact": "support@novaecosystem.live",
+  "parent": { "name": "Nova Ecosystem", "url": "https://novaecosystem.live" }
+}

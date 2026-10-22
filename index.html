@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NOVA PDF — every PDF tool, zero uploads</title>
+    <meta
+      name="description"
+      content="NOVA PDF is a complete PDF workstation that runs in your browser: merge, split, organise, watermark, sign, redact, compress, convert, OCR and encrypt. Your files never leave your device."
+    />
+    <link rel="canonical" href="https://pdf.novaecosystem.live/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="theme-color" content="#07080b" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NOVA PDF" />
+    <meta property="og:title" content="NOVA PDF — every PDF tool, zero uploads" />
+    <meta property="og:description" content="A full PDF workstation inside your browser. Merge, edit, sign, redact, compress, convert and OCR without uploading a single file." />
+    <meta property="og:url" content="https://pdf.novaecosystem.live/" />
+    <meta property="og:image" content="https://pdf.novaecosystem.live/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NOVA PDF — every PDF tool, zero uploads" />
+    <meta name="twitter:description" content="30+ PDF tools that run entirely in your browser. No uploads, no account, no watermark." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="stylesheet" href="/src/landing/landing.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "NOVA PDF",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any modern browser",
+        "url": "https://pdf.novaecosystem.live/",
+        "description": "A local-first PDF workstation with 30+ tools: merge, split, organise, watermark, sign, redact, compress, convert, OCR and AES-256 encryption. Files are processed in the browser and never uploaded.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "featureList": [
+          "Merge and split PDFs",
+          "Organise, rotate, crop and resize pages",
+          "Watermark, page numbers, headers and Bates numbering",
+          "Sign, stamp and annotate",
+          "True redaction",
+          "Compress and grayscale",
+          "Convert PDF to images, text, HTML, Markdown and JSON",
+          "Images and Markdown to PDF",
+          "OCR for scanned documents",
+          "AES-256 password protection",
+          "PDF/A archive conversion",
+          "Offline PWA"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are my PDF files uploaded to a server?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. NOVA PDF runs PDF.js, pdf-lib and Tesseract in your browser. Your document stays in the tab's memory and is never sent anywhere. You can confirm it in the browser's Network panel: there are no upload requests." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is NOVA PDF free?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every tool is free, with no account, no watermark and no imposed file-size limit. The only limit is the memory of your own device." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work offline?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Install NOVA PDF as a PWA or use the offline copy button once. After the engine is cached, the workbench starts and processes files without a connection." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is the redaction permanent?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Redaction flattens the page at high resolution, paints the selected areas black, and rebuilds the PDF, so the covered text and images no longer exist in the output file." }
+          },
+          {
+            "@type": "Question",
+            "name": "Which encryption is used for password protection?",
+            "acceptedAnswer": { "@type": "Answer", "text": "AES-256 (PDF 2.0 revision 6), with separate user and owner passwords and permission flags for printing, copying, editing, annotations and form filling." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can it read scanned PDFs?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The OCR tool rasterises each page locally, recognises the text with Tesseract, and writes an invisible text layer back into a searchable PDF. English, Greek, German, French, Spanish, Italian, Portuguese and Dutch are included." }
+          },
+          {
+            "@type": "Question",
+            "name": "Which browsers are supported?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Current Chrome, Edge, Firefox and Safari on desktop. Mobile browsers work for smaller files; very large documents need desktop memory." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you keep analytics or logs?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No document content, filenames or metadata is transmitted. The application is static and performs no telemetry calls." }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="nav" id="top">
+      <a class="brand" href="#top" aria-label="NOVA PDF home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="24" height="24">
+            <path d="M8 3h11l6 6v20H8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            <path d="M19 3v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            <path d="M12 17l3 6 2-4 2 2 3-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="brand-type">NOVA <b>PDF</b></span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#tools">Tools</a>
+        <a href="#why">Why local</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <div id="nova-lang-slot" class="lang-slot" aria-label="Language"></div>
+        <a class="ghost-link" href="https://novaecosystem.live" rel="noopener">Nova Ecosystem</a>
+        <a class="nav-cta" href="/app/">Open the app <span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-glow" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="pulse"></span> 100% browser-native · no uploads</p>
+          <h1>Every PDF tool.<br /><em>Zero uploads.</em></h1>
+          <p class="lede">
+            Merge, split, sign, redact, compress, convert and OCR — a complete PDF workstation
+            that runs inside your browser. Your document never leaves the tab.
+          </p>
+          <div class="cta-row">
+            <a class="cta" href="/app/">Open the workbench <span aria-hidden="true">→</span></a>
+            <a class="cta-sub" href="#tools">See all 30+ tools</a>
+          </div>
+          <ul class="trust">
+            <li>No account</li>
+            <li>No watermark</li>
+            <li>No file-size limit from us</li>
+            <li>Works offline</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="app-mock">
+            <div class="mock-bar">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              <span class="mock-url">pdf.novaecosystem.live/app</span>
+              <span class="mock-local">● local</span>
+            </div>
+            <div class="mock-body">
+              <aside class="mock-rail">
+                <span class="mock-search">Find a tool…</span>
+                <span class="mock-label">Organise</span>
+                <span class="mock-tool active">Merge PDFs</span>
+                <span class="mock-tool">Split PDF</span>
+                <span class="mock-tool">Organise pages</span>
+                <span class="mock-label">Edit</span>
+                <span class="mock-tool">Watermark</span>
+                <span class="mock-tool">Sign &amp; stamp</span>
+                <span class="mock-tool">Redact</span>
+                <span class="mock-label">Convert</span>
+                <span class="mock-tool">PDF → images</span>
+              </aside>
+              <div class="mock-doc">
+                <div class="mock-page">
+                  <span class="line w70"></span>
+                  <span class="line w90"></span>
+                  <span class="line w84"></span>
+                  <span class="line w60"></span>
+                  <span class="mock-figure"></span>
+                  <span class="line w92"></span>
+                  <span class="line w76"></span>
+                  <span class="line w88"></span>
+                  <span class="mock-seal">100% local</span>
+                </div>
+                <div class="mock-thumbs"><span></span><span></span><span></span></div>
+              </div>
+              <aside class="mock-panel">
+                <span class="mock-title">Compress PDF</span>
+                <span class="mock-copy">Shrink scans without sending them anywhere.</span>
+                <span class="mock-field">Method</span>
+                <span class="mock-select">Recompress images</span>
+                <span class="mock-field">Resolution</span>
+                <span class="mock-select">150 DPI — balanced</span>
+                <span class="mock-field">Quality</span>
+                <span class="mock-track"><i></i></span>
+                <span class="mock-run">Compress PDF →</span>
+                <span class="mock-note">🔒 processed locally</span>
+              </aside>
+            </div>
+          </div>
+          <div class="visual-chip one">No network requests</div>
+          <div class="visual-chip two">AES-256</div>
+        </div>
+      </section>
+
+      <section class="strip" aria-label="Principles">
+        <div><b>0</b><span>bytes uploaded</span></div>
+        <div><b>30+</b><span>PDF tools</span></div>
+        <div><b>AES-256</b><span>real encryption</span></div>
+        <div><b>100%</b><span>offline capable</span></div>
+      </section>
+
+      <section class="section" id="why">
+        <div class="section-head">
+          <p class="eyebrow">Why local-first</p>
+          <h2>Some documents should never touch a server.</h2>
+          <p>
+            Contracts, medical records, payslips, ID scans, client files. Uploading them to a
+            free converter means trusting an unknown machine with the original. NOVA PDF removes
+            that decision: the engine is downloaded once, and the file is processed on your own hardware.
+          </p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <span class="card-icon">01</span>
+            <h3>The file stays in the tab</h3>
+            <p>PDF.js and pdf-lib operate on an in-memory copy. Closing the tab wipes it. There is no upload endpoint to leak, log or retain.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon">02</span>
+            <h3>No account, no paywall</h3>
+            <p>Every tool is available on first load. No sign-up wall in front of “download”, no watermark stamped onto your work.</p>
+          </article>
+          <article class="card">
+            <span class="card-icon">03</span>
+            <h3>Honest engineering</h3>
+            <p>Text stays selectable, signatures are real PDF objects, encryption is AES-256, and redaction physically removes content instead of drawing a box over it.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section tools-section" id="tools">
+        <div class="section-head">
+          <p class="eyebrow">The workbench</p>
+          <h2>30+ tools. One private workspace.</h2>
+          <p>Open several PDFs, move between tools, and download the result. Batch mode applies a tool to every open document.</p>
+        </div>
+
+        <div class="tool-groups">
+          <div class="tool-group">
+            <h3>Organise</h3>
+            <ul>
+              <li><b>Merge PDFs</b><span>Combine files in a chosen order.</span></li>
+              <li><b>Split PDF</b><span>Ranges, fixed chunks, single pages or size limits.</span></li>
+              <li><b>Organise pages</b><span>Drag, rotate, duplicate and delete with live thumbnails.</span></li>
+              <li><b>Rotate PDF</b><span>Any page, 90°, 180° or 270°.</span></li>
+              <li><b>Extract pages</b><span>Keep only what you need in a clean file.</span></li>
+              <li><b>Crop / trim</b><span>Remove margins and rebuild the page at the new size.</span></li>
+              <li><b>Resize pages</b><span>A4, A3, A5, Letter, Legal with fit or fill.</span></li>
+              <li><b>Multiple per sheet</b><span>2, 4, 6 or 9-up imposition.</span></li>
+              <li><b>Booklet</b><span>Saddle-stitch sheets ready for double-sided printing.</span></li>
+            </ul>
+          </div>
+          <div class="tool-group">
+            <h3>Edit</h3>
+            <ul>
+              <li><b>Watermark</b><span>Text or logo, tiled, rotated, with opacity control.</span></li>
+              <li><b>Page numbers</b><span>Custom format, position and starting number.</span></li>
+              <li><b>Header &amp; footer</b><span>Running title, date and page tokens.</span></li>
+              <li><b>Bates numbering</b><span>Legal sequential stamps with a prefix.</span></li>
+              <li><b>Sign &amp; stamp</b><span>Draw, type or upload a signature and place it.</span></li>
+              <li><b>Annotate</b><span>Text, highlights, boxes and freehand notes.</span></li>
+              <li><b>Fill forms</b><span>AcroForm fields with optional flattening.</span></li>
+              <li><b>Metadata</b><span>Rewrite title, author, subject and keywords.</span></li>
+              <li><b>Clean &amp; repair</b><span>Flatten, sanitize or rebuild a damaged file.</span></li>
+            </ul>
+          </div>
+          <div class="tool-group">
+            <h3>Convert</h3>
+            <ul>
+              <li><b>PDF → images</b><span>PNG, JPEG or WebP up to 600 DPI.</span></li>
+              <li><b>Images → PDF</b><span>JPG, PNG, WebP and AVIF with page layout.</span></li>
+              <li><b>PDF → text</b><span>The real text layer, page by page.</span></li>
+              <li><b>PDF → HTML</b><span>A clean, self-contained reading page.</span></li>
+              <li><b>PDF → Markdown</b><span>Structured paragraphs and headings.</span></li>
+              <li><b>PDF → JSON</b><span>Pages, sizes, metadata and text for pipelines.</span></li>
+              <li><b>Text / Markdown → PDF</b><span>Typeset with Unicode and Greek support.</span></li>
+              <li><b>PDF/A</b><span>Long-term archive conversion (PDF/A-2b, 3b).</span></li>
+            </ul>
+          </div>
+          <div class="tool-group">
+            <h3>Optimise, secure &amp; extract</h3>
+            <ul>
+              <li><b>Compress</b><span>Image recompression or lossless rewriting.</span></li>
+              <li><b>Grayscale</b><span>Neutral printouts and smaller scans.</span></li>
+              <li><b>OCR</b><span>Searchable PDFs in eight languages, on device.</span></li>
+              <li><b>Protect</b><span>AES-256 with granular permissions.</span></li>
+              <li><b>Remove password</b><span>Unlock a file you own into an unencrypted copy.</span></li>
+              <li><b>Redact</b><span>Permanent removal, not a black rectangle on top.</span></li>
+              <li><b>Document inspector</b><span>Pages, fonts, scripts and attachments.</span></li>
+              <li><b>Compare versions</b><span>Side-by-side and pixel diff for every page.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section compare" id="compare">
+        <div class="section-head">
+          <p class="eyebrow">The difference</p>
+          <h2>A converter uploads. A workstation does not.</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Capability</th><th scope="col">Typical online converter</th><th scope="col">NOVA PDF</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Document transfer</td><td>Uploaded to a server</td><td class="good">Never leaves the device</td></tr>
+              <tr><td>Account required</td><td>Often, for larger files</td><td class="good">Never</td></tr>
+              <tr><td>Watermark on output</td><td>Common on free tiers</td><td class="good">None</td></tr>
+              <tr><td>File-size limit</td><td>Server quota</td><td class="good">Your device's memory</td></tr>
+              <tr><td>Offline use</td><td>Impossible</td><td class="good">Installable PWA</td></tr>
+              <tr><td>Encryption</td><td>Server-side, logged</td><td class="good">AES-256 in-browser</td></tr>
+              <tr><td>Redaction</td><td>Often only a black box</td><td class="good">Content physically removed</td></tr>
+              <tr><td>Batch workflow</td><td>Paid tier</td><td class="good">Every tool</td></tr>
+              <tr><td>Tool breadth</td><td>10–20 tools</td><td class="good">30+ tools incl. OCR and PDF/A</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="section-head">
+          <p class="eyebrow">How it works</p>
+          <h2>Three steps. No round trip.</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><span>1</span><h3>Open a PDF or image</h3><p>Drag it anywhere, or use the file picker. Password-protected PDFs ask for the password locally.</p></div>
+          <div class="step"><span>2</span><h3>Choose a tool</h3><p>Search with <kbd>Ctrl K</kbd>, tune the options, and watch a live page preview when placement matters.</p></div>
+          <div class="step"><span>3</span><h3>Download the result</h3><p>The output is generated in memory and saved by your browser. The original is untouched.</p></div>
+        </div>
+
+        <div class="tech">
+          <div class="tech-item"><h3>Engine</h3><p>Mozilla PDF.js for rendering and text extraction, pdf-lib for writing real PDF objects and AES-256 encryption.</p></div>
+          <div class="tech-item"><h3>OCR</h3><p>Tesseract compiled to WebAssembly. Language models are cached after the first run, then OCR works offline.</p></div>
+          <div class="tech-item"><h3>Offline</h3><p>A service worker caches the workbench and its fonts. Use “Make available offline” once for the complete engine.</p></div>
+          <div class="tech-item"><h3>Verifiable</h3><p>Open DevTools → Network while processing a file. You will see no request carrying the document.</p></div>
+        </div>
+      </section>
+
+      <section class="section faq" id="faq">
+        <div class="section-head">
+          <p class="eyebrow">Questions</p>
+          <h2>Straight answers.</h2>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>Are my PDF files uploaded to a server?</summary>
+            <p>No. NOVA PDF runs PDF.js, pdf-lib and Tesseract in your browser. Your document stays in the tab's memory and is never sent anywhere. You can confirm it in the browser's Network panel: there are no upload requests.</p>
+          </details>
+          <details>
+            <summary>Is NOVA PDF free?</summary>
+            <p>Yes. Every tool is free, with no account, no watermark and no file-size limit imposed by us. The only limit is the memory of your own device.</p>
+          </details>
+          <details>
+            <summary>Does it work offline?</summary>
+            <p>Yes. Install NOVA PDF as a PWA or use the offline copy button once. After the engine is cached, the workbench starts and processes files without a connection.</p>
+          </details>
+          <details>
+            <summary>Is the redaction permanent?</summary>
+            <p>Yes. Redaction flattens the page at high resolution, paints the selected areas black, and rebuilds the PDF, so the covered text and images no longer exist in the output file.</p>
+          </details>
+          <details>
+            <summary>Which encryption is used?</summary>
+            <p>AES-256 (PDF 2.0 revision 6), with separate user and owner passwords and permission flags for printing, copying, editing, annotations and form filling.</p>
+          </details>
+          <details>
+            <summary>Can it read scanned PDFs?</summary>
+            <p>Yes. OCR rasterises each page locally, recognises the text with Tesseract, and writes an invisible text layer back into a searchable PDF. English, Greek, German, French, Spanish, Italian, Portuguese and Dutch are included.</p>
+          </details>
+          <details>
+            <summary>Which browsers are supported?</summary>
+            <p>Current Chrome, Edge, Firefox and Safari on desktop. Mobile browsers work for smaller files; very large documents need desktop memory.</p>
+          </details>
+          <details>
+            <summary>Do you keep analytics or logs?</summary>
+            <p>No document content, filenames or metadata is transmitted. The application is static and performs no telemetry calls.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="final-cta">
+        <div>
+          <p class="eyebrow">Ready when you are</p>
+          <h2>Open a document. Keep it yours.</h2>
+          <p>No sign-up screen, no upload bar, no waiting queue. The engine is already in the tab.</p>
+        </div>
+        <a class="cta" href="/app/">Launch NOVA PDF <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="foot-brand">
+        <span class="brand-mark small" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="18" height="18">
+            <path d="M8 3h11l6 6v20H8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            <path d="M19 3v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span>NOVA PDF — a Nova Ecosystem product</span>
+      </div>
+      <nav aria-label="Footer">
+        <a href="/app/">Workbench</a>
+        <a href="#tools">Tools</a>
+        <a href="#faq">FAQ</a>
+        <a href="/llms.txt">llms.txt</a>
+        <button type="button" class="offline-btn" id="offline-btn">Make available offline</button>
+        <a href="mailto:support@novaecosystem.live">support@novaecosystem.live</a>
+      </nav>
+      <p class="offline-status" id="offline-status" role="status" aria-live="polite"></p>
+      <p class="foot-note">Files are processed on your device. No document is transmitted to Nova or any third party.</p>
+    </footer>
+
+    <script src="/nova-translate.js" defer></script>
+    <script type="module" src="/src/landing/main.ts"></script>
+  </body>
+</html>

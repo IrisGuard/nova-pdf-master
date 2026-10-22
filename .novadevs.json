@@ -1,0 +1,26 @@
+{
+  "name": "NOVA PDF",
+  "slug": "nova-pdf",
+  "domain": "pdf.novaecosystem.live",
+  "visibility": "public",
+  "ownerCockpit": false,
+  "product": "Local-first PDF workstation",
+  "description": "34 PDF tools that run entirely in the browser with PDF.js, pdf-lib and Tesseract. Files are never uploaded.",
+  "stack": "Vite + React + TypeScript + Cloudflare Workers static assets",
+  "deploy": "wrangler deploy",
+  "support": "support@novaecosystem.live",
+  "parent": "https://novaecosystem.live",
+  "multilingual": {
+    "enabled": true,
+    "languages": 109,
+    "mechanism": "client-side Google endpoints (protocol §0n)",
+    "autoDetect": ["?hl=", "localStorage", "navigator.language", "IP country via /api/geo"],
+    "first": ["en", "el"]
+  },
+  "features": ["merge", "split", "organize", "rotate", "extract", "crop", "resize", "n-up", "booklet", "watermark", "page numbers", "header/footer", "bates", "sign", "annotate", "forms", "metadata", "clean", "pdf-to-images", "images-to-pdf", "pdf-to-text", "pdf-to-html", "pdf-to-markdown", "pdf-to-json", "text-to-pdf", "pdf-to-pdfa", "compress", "grayscale", "ocr", "protect", "unlock", "redact", "inspector", "compare"],
+  "privacy": {
+    "uploads": false,
+    "accounts": false,
+    "telemetry": false
+  }
+}
