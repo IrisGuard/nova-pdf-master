@@ -4,6 +4,30 @@ const onScroll = () => nav?.classList.toggle('scrolled', window.scrollY > 8);
 onScroll();
 window.addEventListener('scroll', onScroll, { passive: true });
 
+/* ---------- light / dark theme toggle (shared key with the workbench) ---------- */
+
+const THEME_KEY = 'nova-pdf-theme';
+const themeBtn = document.getElementById('theme-btn') as HTMLButtonElement | null;
+
+function applyTheme(theme: 'light' | 'dark') {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f3f2ec' : '#07080b');
+}
+
+// The inline <head> script already set data-theme from localStorage; sync the
+// theme-color meta once on load and wire the button.
+applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+
+themeBtn?.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  try {
+    localStorage.setItem(THEME_KEY, next);
+  } catch {
+    /* storage unavailable — theme still applies for this session */
+  }
+});
+
 const targets = document.querySelectorAll<HTMLElement>(
   '.section-head, .card, .tool-group, .table-wrap, .step, .tech-item, .faq-list, .final-cta, .strip',
 );

@@ -1,9 +1,9 @@
 /* NOVA PDF service worker — offline shell + on-demand full engine cache. */
 
-const VERSION = 'nova-pdf-v1';
+const VERSION = 'nova-pdf-v2';
 const SHELL_CACHE = `${VERSION}-shell`;
 const RUNTIME_CACHE = `${VERSION}-runtime`;
-const SHELL = ['/', '/app/', '/manifest.webmanifest', '/favicon.svg', '/icon.svg'];
+const SHELL = ['/', '/app/', '/theme-init.js', '/manifest.webmanifest', '/favicon.svg', '/icon.svg'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

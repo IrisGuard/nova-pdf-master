@@ -28,6 +28,76 @@
   --r-sm: 10px;
   --max: 1200px;
   --shadow: 0 40px 120px rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}
+
+/* Light theme — same palette family as the workbench light theme so the whole
+   product matches. The user toggles it from the 🌗 button in the nav. */
+html[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f3f2ec;
+  --bg-1: #faf9f4;
+  --bg-2: #f6f5ef;
+  --bg-3: #efece2;
+  --line: #dedbd0;
+  --line-soft: #e8e5da;
+  --ink: #14151a;
+  --ink-2: #2e303a;
+  --ink-3: #6a6e7b;
+  --ink-4: #8c8f9a;
+  --acid: #79b000;
+  --acid-soft: rgba(121, 176, 0, 0.12);
+  --acid-line: rgba(121, 176, 0, 0.4);
+  --ice: #38a6d8;
+  --shadow: 0 30px 80px rgba(20, 20, 25, 0.14);
+}
+
+/* Dark hardcoded surfaces become paper/white in the light theme. */
+html[data-theme='light'] .nav {
+  background: rgba(243, 242, 236, 0.82);
+}
+html[data-theme='light'] .nav.scrolled {
+  background: rgba(243, 242, 236, 0.95);
+}
+html[data-theme='light'] .app-mock {
+  background: linear-gradient(170deg, #ffffff, #f6f5ef 60%);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(0, 0, 0, 0.04) inset;
+}
+html[data-theme='light'] .mock-bar {
+  background: rgba(0, 0, 0, 0.02);
+}
+html[data-theme='light'] .mock-url {
+  background: #efece2;
+}
+html[data-theme='light'] .mock-doc {
+  background:
+    radial-gradient(60% 70% at 50% 20%, rgba(56, 166, 216, 0.05), transparent 70%),
+    #f6f5ef;
+}
+html[data-theme='light'] .mock-page {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+}
+html[data-theme='light'] .mock-select {
+  background: #ffffff;
+}
+html[data-theme='light'] .mock-track {
+  background: #e8e5da;
+}
+html[data-theme='light'] .visual-chip {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+html[data-theme='light'] thead th {
+  background: rgba(0, 0, 0, 0.02);
+}
+html[data-theme='light'] .final-cta {
+  background:
+    radial-gradient(80% 140% at 12% 0%, rgba(121, 176, 0, 0.08), transparent 60%),
+    linear-gradient(160deg, #ffffff, #faf9f4);
+}
+html[data-theme='light'] .card:hover,
+html[data-theme='light'] .cta-sub:hover {
+  border-color: #c9c5b8;
 }
 
 * {
@@ -170,6 +240,33 @@ ul {
 
 .ghost-link:hover {
   color: var(--ink);
+}
+
+.theme-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+  background: transparent;
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+.theme-btn:hover {
+  color: var(--ink);
+  border-color: var(--acid-line);
+}
+/* dark (default) shows the sun → click for light; light shows the moon */
+.theme-btn .theme-moon {
+  display: none;
+}
+html[data-theme='light'] .theme-btn .theme-sun {
+  display: none;
+}
+html[data-theme='light'] .theme-btn .theme-moon {
+  display: block;
 }
 
 .nav-cta {

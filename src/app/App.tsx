@@ -42,6 +42,7 @@ export function App() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f3f2ec' : '#07080b');
   }, [theme]);
 
   useEffect(() => {

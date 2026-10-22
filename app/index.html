@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/theme-init.js"></script>
     <title>NOVA PDF — the local-first PDF workstation</title>
     <meta
       name="description"
@@ -19,7 +20,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <style>
       html,
       body {
@@ -27,6 +28,10 @@
         background: #07080b;
         color: #eef0f5;
         font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      }
+      html[data-theme='light'] body {
+        background: #f3f2ec;
+        color: #14151a;
       }
       #boot {
         min-height: 100vh;
