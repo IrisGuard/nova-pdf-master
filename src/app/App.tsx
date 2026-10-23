@@ -397,6 +397,7 @@ function CommandPalette({ onClose, onTool, onOpen }: { onClose: () => void; onTo
               setCursor(0);
             }}
             placeholder="Search 30+ PDF tools…"
+            aria-label="Search PDF tools"
             onKeyDown={(e) => {
               if (e.key === 'ArrowDown') setCursor((c) => Math.min(results.length - 1, c + 1));
               if (e.key === 'ArrowUp') setCursor((c) => Math.max(0, c - 1));
@@ -454,6 +455,7 @@ function PasswordDialog({ fileName, onSubmit }: { fileName: string; onSubmit: (v
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="PDF password"
+          aria-label="PDF password"
           onKeyDown={(e) => e.key === 'Enter' && onSubmit(value)}
         />
         <div className="dialog-actions">

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/theme-init.js"></script>
+    <script>(function(){try{var t=localStorage.getItem('nova-pdf-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
     <title>NOVA PDF — every PDF tool, zero uploads</title>
     <meta
       name="description"
@@ -27,6 +27,8 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="stylesheet" href="/src/landing/landing.css" />
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/nova-translate.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",

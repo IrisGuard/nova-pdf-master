@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { OptionValue, PdfFile } from '../../lib/types';
 import type { EditorProps } from './PageEditors';
 import { formatBytes } from '../../lib/util';
@@ -22,11 +22,22 @@ export function MergeEditor({ files, options, setOption }: MergeProps) {
     const saved = options.mergeIds as string[] | undefined;
     return saved && saved.length ? saved : files.map((f) => f.id);
   });
+  /* Files that were already on screen the last time we synced. A deep link
+     (?tool=merge) mounts this editor with zero files, so the old code initialised
+     `enabled` to [] and every file opened afterwards stayed unticked — the run
+     produced nothing. Track what we have seen so a newly opened file is included,
+     while a file the visitor unticked by hand stays unticked. */
+  const seen = useRef<string[]>(files.map((f) => f.id));
 
   useEffect(() => {
-    const known = new Set(files.map((f) => f.id));
-    setOrder((o) => [...o.filter((id) => known.has(id)), ...files.map((f) => f.id).filter((id) => !o.includes(id))]);
-    setEnabled((e) => e.filter((id) => known.has(id)));
+    const known = files.map((f) => f.id);
+    const fresh = known.filter((id) => !seen.current.includes(id));
+    seen.current = known;
+    setOrder((o) => [...o.filter((id) => known.includes(id)), ...known.filter((id) => !o.includes(id))]);
+    setEnabled((e) => {
+      const kept = e.filter((id) => known.includes(id));
+      return fresh.length ? [...kept, ...fresh.filter((id) => !kept.includes(id))] : kept;
+    });
   }, [files.map((f) => f.id).join(',')]);
 
   useEffect(() => {

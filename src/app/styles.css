@@ -9,8 +9,19 @@
   font-display: swap;
 }
 
+/* Metric-matched fallback — see landing.css. Stops the workbench from reflowing
+   when the variable font finishes loading. */
+@font-face {
+  font-family: 'InterVar Fallback';
+  src: local('Segoe UI'), local('Arial'), local('Helvetica Neue');
+  size-adjust: 92.86%;
+  ascent-override: 95.8%;
+  descent-override: 23.7%;
+  line-gap-override: 0%;
+}
+
 :root {
-  --font: 'InterVar', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font: 'InterVar', 'InterVar Fallback', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
   --bg: #07080b;
   --bg-soft: #0b0c11;
@@ -21,8 +32,10 @@
   --line-soft: #1a1b24;
   --text: #eef0f5;
   --text-dim: #c3c7d2;
-  --muted: #8a8f9d;
-  --muted-2: #666b79;
+  /* WCAG 2.2 AA on --panel (#101117) and --bg (#07080b): muted 6.5:1,
+     muted-2 5.5:1. The old muted-2 (#666b79) was 3.6:1. */
+  --muted: #9aa0ae;
+  --muted-2: #858b99;
   --accent: #c9ff4d;
   --accent-2: #9be02f;
   --accent-ink: #0b0d05;
@@ -47,8 +60,8 @@ html[data-theme='light'] {
   --line-soft: #e8e5da;
   --text: #14151a;
   --text-dim: #2e303a;
-  --muted: #6a6e7b;
-  --muted-2: #8c8f9a;
+  --muted: #5f636d;
+  --muted-2: #6a6e7b;
   --accent: #a9e600;
   --accent-2: #8cc800;
   --accent-ink: #101401;

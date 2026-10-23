@@ -273,6 +273,7 @@ export function PdfViewer({ file }: { file: PdfFile }) {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && search()}
               placeholder="Find text in this document…"
+              aria-label="Find text in this document"
             />
             <button className="mini-btn" onClick={search} disabled={searching}>{searching ? 'Searching…' : 'Find'}</button>
             {hits && <span className="muted">{hits.length} hits</span>}

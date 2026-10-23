@@ -1,0 +1,50 @@
+/* NOVA PDF — boot splash styles. External so the CSP can forbid inline <style>. */
+html,
+body {
+  margin: 0;
+  background: #07080b;
+  color: #eef0f5;
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+html[data-theme='light'] body {
+  background: #f3f2ec;
+  color: #14151a;
+}
+#boot {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  text-align: center;
+  padding: 40px;
+}
+#boot .mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(150deg, #c9ff4d, #86d9ff);
+  margin: 0 auto;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+#boot h1 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+#boot p {
+  margin: 0;
+  color: #8a8f9d;
+  font-size: 12px;
+}
+@keyframes pulse {
+  50% {
+    transform: scale(0.92);
+    opacity: 0.7;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #boot .mark {
+    animation: none;
+  }
+}

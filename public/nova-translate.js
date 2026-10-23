@@ -509,32 +509,13 @@
 
   function css() {
     if (document.getElementById('nv-lang-css')) return;
-    var st = document.createElement('style');
-    st.id = 'nv-lang-css';
-    st.textContent = [
-      /* Theme-agnostic: both surfaces expose --line/--ink/--bg, and NOVA PDF's
-         accent is --accent in the app and --acid on the landing. */
-      '.nv-lang{position:relative;display:inline-block;font:inherit;z-index:60}',
-      '.nv-lang summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line,rgba(255,255,255,.14));background:var(--panel-2,var(--bg-3,rgba(255,255,255,.05)));color:var(--ink,var(--text,#eef0f5));border-radius:10px;padding:7px 9px;font:inherit;font-size:14px;line-height:1;user-select:none}',
-      '.nv-lang summary::-webkit-details-marker{display:none}',
-      '.nv-lang summary:hover{border-color:color-mix(in srgb,var(--accent,var(--acid,#c9ff4d)) 45%,var(--line,rgba(255,255,255,.14)))}',
-      '.nv-lang[open] summary{border-color:color-mix(in srgb,var(--accent,var(--acid,#c9ff4d)) 60%,var(--line,rgba(255,255,255,.14)))}',
-      '.nv-lang-panel{position:absolute;top:calc(100% + 8px);right:0;width:min(320px,86vw);max-height:min(420px,70vh);overflow:auto;background:var(--surface,var(--bg-1,#101319));border:1px solid var(--line,rgba(255,255,255,.14));border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.6);padding:10px;z-index:90}',
-      '.nv-lang-panel input{width:100%;box-sizing:border-box;background:var(--bg,var(--bg-1,#07080b));border:1px solid var(--line,rgba(255,255,255,.14));border-radius:9px;color:var(--ink,var(--text,#eef0f5));padding:9px 10px;font:inherit;font-size:13px;margin-bottom:8px}',
-      '.nv-lang-panel input:focus{outline:2px solid color-mix(in srgb,var(--accent,var(--acid,#c9ff4d)) 70%,transparent);outline-offset:1px}',
-      '.nv-lang-btn{display:block;width:100%;box-sizing:border-box;text-align:left;background:none;border:0;color:var(--text-dim,var(--ink-2,#c3c7d2));font:inherit;font-size:13px;padding:8px 9px;border-radius:8px;cursor:pointer;overflow-wrap:anywhere;white-space:normal}',
-      '.nv-lang-btn:hover,.nv-lang-btn:focus{background:color-mix(in srgb,var(--accent,var(--acid,#c9ff4d)) 16%,transparent);color:var(--ink,var(--text,#fff));outline:none}',
-      ".nv-lang-btn[aria-current='true']{background:color-mix(in srgb,var(--accent,var(--acid,#c9ff4d)) 24%,transparent);color:var(--ink,var(--text,#fff));font-weight:700}",
-      '.nv-lang-btn small{color:var(--muted,var(--ink-3,#8a8f9d));margin-left:6px;font-size:11px}',
-      '.nv-lang-float{position:fixed;right:16px;bottom:16px;z-index:70}',
-      '@media(min-width:641px){.nv-lang-float .nv-lang-panel{top:auto;bottom:calc(100% + 8px);max-height:min(420px,60vh)}}',
-      /* A header with backdrop-filter becomes the containing block for fixed
-         children, so a "fixed" sheet lands off-screen. Below 640px the panel is
-         an absolutely positioned sheet pinned inside the header instead:
-         right-aligned to the pill, width capped to the viewport. */
-      '@media(max-width:640px){.nv-lang-panel{position:absolute;left:auto;right:0;top:calc(100% + 8px);bottom:auto;width:min(340px,calc(100vw - 20px));max-height:min(60vh,460px)}.nv-lang-float .nv-lang-panel{position:absolute;top:auto;bottom:calc(100% + 8px);right:0;left:auto}.nv-lang-float{right:12px;bottom:12px}.nv-lang summary{padding:7px 8px}}',
-    ].join('\n');
-    document.head.appendChild(st);
+    /* External stylesheet, not an injected <style> element: the CSP allows
+       style-src 'self' only, and a linked sheet keeps the picker styled. */
+    var link = document.createElement('link');
+    link.id = 'nv-lang-css';
+    link.rel = 'stylesheet';
+    link.href = '/nova-translate.css';
+    document.head.appendChild(link);
   }
 
   function makeControl(compact, floating) {

@@ -15,10 +15,14 @@ const SECURITY_HEADERS = {
 
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'wasm-unsafe-eval'",
+  "script-src 'self' 'wasm-unsafe-eval' 'sha256-T+1uM5DTaZ+nHs9xnj6cjMzyPKVqLMo/letZc8zfL4I='",
   "worker-src 'self' blob:",
   "child-src 'self' blob:",
-  "style-src 'self' 'unsafe-inline'",
+  // Inline <style> elements and injected sheets are gone (real .css files), so
+  // style-src stays 'self'. Style *attributes* are still produced by React for
+  // the redaction boxes and progress bars; CSP3 scopes that to attr only.
+  "style-src 'self'",
+  "style-src-attr 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
   // §0n: the free, client-side Google translation endpoints. A proxy through

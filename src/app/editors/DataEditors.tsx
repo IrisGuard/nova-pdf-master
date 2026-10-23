@@ -66,7 +66,7 @@ export function FormsEditor({ file, options, setOption }: EditorProps) {
       <div className="form-grid">
         {fields.map((f) => (
           <div className="field-row" key={f.name}>
-            <label>
+            <label htmlFor={`form-${f.name}`}>
               {f.name}
               <span className="field-type">{f.type}{f.required ? ' · required' : ''}</span>
             </label>
@@ -81,6 +81,7 @@ export function FormsEditor({ file, options, setOption }: EditorProps) {
               </label>
             ) : f.type === 'dropdown' || f.type === 'radio' || f.type === 'list' ? (
               <select
+                id={`form-${f.name}`}
                 value={values[f.name] || ''}
                 onChange={(e) => setValues((v) => ({ ...v, [f.name]: e.target.value }))}
               >
@@ -93,6 +94,7 @@ export function FormsEditor({ file, options, setOption }: EditorProps) {
               <span className="muted">Signature fields are left untouched.</span>
             ) : (
               <input
+                id={`form-${f.name}`}
                 value={values[f.name] || ''}
                 onChange={(e) => setValues((v) => ({ ...v, [f.name]: e.target.value }))}
                 placeholder={f.readOnly ? 'Read-only field' : 'Type a value'}
@@ -149,8 +151,9 @@ export function MetadataEditor({ file, options, setOption }: EditorProps) {
           ['producer', 'Producer'],
         ].map(([key, label]) => (
           <div className="field-row" key={key}>
-            <label>{label}</label>
+            <label htmlFor={`meta-${key}`}>{label}</label>
             <input
+              id={`meta-${key}`}
               value={fields[key] || ''}
               disabled={removeAll}
               onChange={(e) => setFields((f) => ({ ...f, [key]: e.target.value }))}

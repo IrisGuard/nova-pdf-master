@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="/theme-init.js"></script>
+    <script>(function(){try{var t=localStorage.getItem('nova-pdf-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
     <title>NOVA PDF — the local-first PDF workstation</title>
     <meta
       name="description"
-      content="Merge, split, sign, redact, compress, convert and OCR PDFs entirely in your browser. NOVA PDF never uploads your files. No account, no watermark, AES-256 encryption."
+      content="Merge, split, sign, redact, compress, convert and OCR PDFs in your browser. No uploads, no account, no watermark, AES-256 encryption."
     />
     <link rel="canonical" href="https://pdf.novaecosystem.live/app/" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -23,52 +23,9 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <style>
-      html,
-      body {
-        margin: 0;
-        background: #07080b;
-        color: #eef0f5;
-        font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-      }
-      html[data-theme='light'] body {
-        background: #f3f2ec;
-        color: #14151a;
-      }
-      #boot {
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        gap: 14px;
-        text-align: center;
-        padding: 40px;
-      }
-      #boot .mark {
-        width: 46px;
-        height: 46px;
-        border-radius: 12px;
-        background: linear-gradient(150deg, #c9ff4d, #86d9ff);
-        margin: 0 auto;
-        animation: pulse 1.4s ease-in-out infinite;
-      }
-      #boot h1 {
-        font-size: 17px;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        margin: 0;
-      }
-      #boot p {
-        margin: 0;
-        color: #8a8f9d;
-        font-size: 12px;
-      }
-      @keyframes pulse {
-        50% {
-          transform: scale(0.92);
-          opacity: 0.7;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="/boot.css" />
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/nova-translate.css" />
   </head>
   <body>
     <div id="root">

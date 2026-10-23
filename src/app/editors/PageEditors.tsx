@@ -241,7 +241,7 @@ export function SignEditor({ file, options, setOption }: EditorProps) {
         {tab === 'draw' && <SignaturePad onReady={makeImage} />}
         {tab === 'type' && (
           <div className="type-sign">
-            <input value={typed} onChange={(e) => setTyped(e.target.value)} placeholder="Type your name" />
+            <input value={typed} onChange={(e) => setTyped(e.target.value)} placeholder="Type your name" aria-label="Type your signature name" />
             <div className="type-preview" style={{ fontFamily: '"Segoe Script","Brush Script MT",cursive' }}>
               {typed || 'Your name'}
             </div>
@@ -270,6 +270,7 @@ export function SignEditor({ file, options, setOption }: EditorProps) {
             <input
               type="file"
               accept="image/png,image/jpeg"
+              aria-label="Upload a signature image"
               onChange={async (e) => {
                 const f = e.target.files?.[0];
                 if (!f) return;
@@ -448,15 +449,15 @@ export function AnnotateEditor({ file, options, setOption }: EditorProps) {
           ))}
           <span className="divider" />
           <label className="anno-color">
-            <input type="color" value={tool === 'highlight' ? color : textColor} onChange={(e) => (tool === 'highlight' ? setColor : setTextColor)(e.target.value)} />
+            <input type="color" aria-label="Annotation colour" value={tool === 'highlight' ? color : textColor} onChange={(e) => (tool === 'highlight' ? setColor : setTextColor)(e.target.value)} />
           </label>
           {tool === 'text' && (
             <label className="anno-size">
-              <input type="number" min={6} max={72} value={size} onChange={(e) => setSize(Number(e.target.value))} /> pt
+              <input type="number" aria-label="Text size in points" min={6} max={72} value={size} onChange={(e) => setSize(Number(e.target.value))} /> pt
             </label>
           )}
           {tool === 'highlight' && (
-            <input className="anno-opacity" type="range" min={0.1} max={0.8} step={0.05} value={opacity} onChange={(e) => setOpacity(Number(e.target.value))} />
+            <input className="anno-opacity" aria-label="Highlight opacity" type="range" min={0.1} max={0.8} step={0.05} value={opacity} onChange={(e) => setOpacity(Number(e.target.value))} />
           )}
         </div>
         <div className="page-holder editor-page">
@@ -527,6 +528,7 @@ export function AnnotateEditor({ file, options, setOption }: EditorProps) {
             {a.type === 'text' ? (
               <input
                 value={a.text}
+                aria-label="Annotation text"
                 onChange={(e) => setItems((p) => p.map((x) => (x.id === a.id && x.type === 'text' ? { ...x, text: e.target.value } : x)))}
               />
             ) : (
@@ -612,7 +614,7 @@ export function RedactEditor({ file, options, setOption }: EditorProps) {
         </div>
         <div className="opt">
           <label>Output resolution</label>
-          <select value={dpi} onChange={(e) => setDpi(Number(e.target.value))}>
+          <select value={dpi} aria-label="Redaction output resolution" onChange={(e) => setDpi(Number(e.target.value))}>
             <option value={150}>150 DPI — fast</option>
             <option value={200}>200 DPI — balanced</option>
             <option value={300}>300 DPI — print</option>
