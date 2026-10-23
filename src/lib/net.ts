@@ -1,9 +1,19 @@
 import { actions } from './store';
 
 /**
+ * The free client-side translation feature (protocol §0n) calls Google Translate
+ * from the visitor's own browser. Those requests carry page UI text only — never
+ * the document — and are disclosed in the CSP `connect-src`. They are NOT an
+ * upload, so they must not move the badge off "0 uploads"; counting them made the
+ * badge read "N external" and contradict the "nothing leaves this tab" promise.
+ */
+const TRANSLATE_HOSTS = ['clients5.google.com', 'translate.googleapis.com'];
+
+/**
  * Count anything that could be an upload: a non-GET request, or a request to
- * another origin. The workbench only ever fetches its own static assets, so the
- * badge stays at "0 uploads" unless something unexpected happens.
+ * another origin (other than the disclosed translation endpoints). The workbench
+ * only ever fetches its own static assets, so the badge stays at "0 uploads"
+ * unless something unexpected happens.
  */
 export function installNetMonitor() {
   if (typeof window === 'undefined') return;
@@ -11,14 +21,18 @@ export function installNetMonitor() {
   if (w.__novaNetInstalled) return;
   w.__novaNetInstalled = true;
 
+  const isUploadLike = (url: URL, method: string) => {
+    if (TRANSLATE_HOSTS.includes(url.hostname)) return false;
+    return url.origin !== location.origin || (method !== 'GET' && method !== 'HEAD');
+  };
+
   const originalFetch = window.fetch.bind(window);
   window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
     try {
       const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
       const method = (init?.method || (input instanceof Request ? input.method : 'GET')).toUpperCase();
       const absolute = new URL(url, location.href);
-      const crossOrigin = absolute.origin !== location.origin;
-      if (crossOrigin || (method !== 'GET' && method !== 'HEAD')) actions.bumpNet();
+      if (isUploadLike(absolute, method)) actions.bumpNet();
     } catch {
       /* never let the monitor break a request */
     }
@@ -33,7 +47,7 @@ export function installNetMonitor() {
       try {
         const absolute = new URL(String(url), location.href);
         const m = (method || 'GET').toUpperCase();
-        if (absolute.origin !== location.origin || (m !== 'GET' && m !== 'HEAD')) actions.bumpNet();
+        if (isUploadLike(absolute, m)) actions.bumpNet();
       } catch {
         /* ignore */
       }

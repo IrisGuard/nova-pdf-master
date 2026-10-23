@@ -304,6 +304,29 @@ textarea::placeholder {
   background: var(--accent);
 }
 
+/* Mobile tool-list opener. Hidden on desktop, shown next to the logo ≤780px. */
+.menu-btn {
+  display: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  place-items: center;
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+.menu-btn:hover {
+  color: var(--text);
+  background: var(--panel-2);
+}
+
+/* Mobile drawer header + backdrop (the rail becomes a slide-in sheet ≤780px). */
+.rail-mobile-head {
+  display: none;
+}
+.rail-backdrop {
+  display: none;
+}
+
 .icon-btn .dot {
   position: absolute;
   top: 5px;
@@ -3090,8 +3113,43 @@ html[data-theme='light'] .page-surface {
   .app-body {
     grid-template-columns: 1fr;
   }
+  /* The tool list becomes a slide-in drawer instead of being hidden entirely,
+     so a phone user can still browse every category without the search box. */
+  .menu-btn {
+    display: grid;
+  }
   .rail {
-    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(320px, 86vw);
+    z-index: 70;
+    transform: translateX(-102%);
+    transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .rail.open {
+    transform: translateX(0);
+  }
+  .rail-mobile-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 10px 6px 14px;
+    font-size: 13px;
+    font-weight: 650;
+    color: var(--text);
+  }
+  .rail-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 65;
+    background: rgba(3, 4, 6, 0.55);
+    animation: fade 0.18s ease both;
   }
   .topbar-label,
   .privacy-pill {

@@ -567,6 +567,7 @@
       b.className = 'nv-lang-btn';
       b.setAttribute('data-nova-lang-option', l[0]);
       b.setAttribute('translate', 'no');
+      b.setAttribute('aria-label', l[1] + (l[2] !== l[1] ? ' — ' + l[2] : ''));
       b.innerHTML = l[1] + (l[2] !== l[1] ? ' <small>' + l[2] + '</small>' : '');
       b.addEventListener('click', function () {
         window.__novaLastRun = setLang(l[0]);
@@ -667,8 +668,11 @@
     } catch (e) {
       /* private mode */
     }
-    var nav = normCode(navigator.language || navigator.userLanguage || 'en');
-    if (nav && nav !== 'en') return Promise.resolve(nav);
+    // The browser's own locale is an explicit user signal and always wins —
+    // including English. Falling through to geo-country here was wrong: a
+    // visitor in Sweden with an English browser got Swedish instead of English.
+    var rawNav = navigator.language || navigator.userLanguage || '';
+    if (rawNav) return Promise.resolve(normCode(rawNav));
     return fetch('/api/geo', { headers: { accept: 'application/json' } })
       .then(function (r) {
         return r.ok ? r.json() : null;

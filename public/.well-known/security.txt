@@ -1,0 +1,6 @@
+Contact: mailto:support@novaecosystem.live
+Expires: 2027-10-23T00:00:00.000Z
+Preferred-Languages: en, el
+Canonical: https://pdf.novaecosystem.live/.well-known/security.txt
+Policy: https://pdf.novaecosystem.live/
+Encryption: https://pdf.novaecosystem.live/

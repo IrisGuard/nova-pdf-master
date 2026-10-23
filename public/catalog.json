@@ -1,0 +1,46 @@
+{
+  "$schema": "https://novaecosystem.live/schemas/catalog.json",
+  "name": "NOVA PDF",
+  "canonical": "https://pdf.novaecosystem.live/",
+  "app": "https://pdf.novaecosystem.live/app/",
+  "description": "A local-first PDF workstation with 32 tools that runs entirely in the browser. Files are processed with PDF.js, pdf-lib and Tesseract and are never uploaded.",
+  "category": "Document productivity",
+  "pricing": { "model": "free", "currency": "EUR", "price": 0 },
+  "privacy": {
+    "uploads": false,
+    "account_required": false,
+    "watermark": false,
+    "telemetry": false,
+    "processing": "client-side"
+  },
+  "counts": {
+    "tools": 32,
+    "groups": 6,
+    "pages": 2,
+    "languages": 109
+  },
+  "groups": [
+    { "id": "organize", "name": "Organise", "count": 9 },
+    { "id": "edit", "name": "Edit", "count": 9 },
+    { "id": "convert", "name": "Convert", "count": 8 },
+    { "id": "optimize", "name": "Optimise", "count": 3 },
+    { "id": "secure", "name": "Secure", "count": 3 },
+    { "id": "inspect", "name": "Inspect", "count": 2 }
+  ],
+  "links": [
+    { "rel": "self", "href": "https://pdf.novaecosystem.live/catalog.json" },
+    { "rel": "summary", "href": "https://pdf.novaecosystem.live/ai-summary.json", "type": "application/json" },
+    { "rel": "ai-index", "href": "https://pdf.novaecosystem.live/ai/index.json", "type": "application/json" },
+    { "rel": "tools", "href": "https://pdf.novaecosystem.live/ai/tools.json", "type": "application/json" },
+    { "rel": "llms", "href": "https://pdf.novaecosystem.live/llms.txt", "type": "text/plain" },
+    { "rel": "sitemap", "href": "https://pdf.novaecosystem.live/sitemap.xml", "type": "application/xml" },
+    { "rel": "landing", "href": "https://pdf.novaecosystem.live/", "type": "text/html" },
+    { "rel": "workbench", "href": "https://pdf.novaecosystem.live/app/", "type": "text/html" }
+  ],
+  "ocr_languages": ["eng", "ell", "deu", "fra", "spa", "ita", "por", "nld"],
+  "encryption": "AES-256 (PDF 2.0 revision 6)",
+  "offline": true,
+  "license": "Proprietary — Nova Ecosystem",
+  "contact": "support@novaecosystem.live",
+  "parent": { "name": "Nova Ecosystem", "url": "https://novaecosystem.live" }
+}

@@ -6,7 +6,8 @@
 
 Canonical: https://pdf.novaecosystem.live/
 Workbench: https://pdf.novaecosystem.live/app/
-Product family: Nova Ecosystem — https://novaecosystem.live
+Product family: Nova Ecosystem — https://novaecosystem.live/
+Machine data: https://pdf.novaecosystem.live/catalog.json · https://pdf.novaecosystem.live/ai-summary.json · https://pdf.novaecosystem.live/ai/index.json
 
 ## What it does
 

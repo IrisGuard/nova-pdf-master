@@ -33,6 +33,7 @@ export function App() {
   const [filter, setFilter] = useState('');
   const [dragging, setDragging] = useState(false);
   const [activity, setActivity] = useState(false);
+  const [railOpen, setRailOpen] = useState(false);
   const dragDepth = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -44,6 +45,12 @@ export function App() {
     document.documentElement.dataset.theme = theme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f3f2ec' : '#07080b');
   }, [theme]);
+
+  // Deep links from the PWA shortcuts (`/app/?tool=merge`) and any shared URL.
+  useEffect(() => {
+    const t = new URLSearchParams(window.location.search).get('tool');
+    if (t && TOOL_MAP.has(t)) actions.setTool(t);
+  }, []);
 
   useEffect(() => {
     const onDragEnter = (e: DragEvent) => {
@@ -140,6 +147,7 @@ export function App() {
         multiple
         accept="application/pdf,image/png,image/jpeg,image/webp,image/avif"
         className="hidden-input"
+        aria-label="Choose PDF or image files"
         onChange={(e) => {
           if (e.target.files?.length) void addFileList(e.target.files);
           e.target.value = '';
@@ -148,13 +156,16 @@ export function App() {
 
       <header className="topbar">
         <div className="topbar-left">
+          <button className="menu-btn" onClick={() => setRailOpen(true)} aria-label="Browse all tools">
+            <Icon name="grid2" size={18} />
+          </button>
           <Logo />
           <span className="topbar-sep" />
           <span className="topbar-label">{tool ? tool.name : 'Workspace'}</span>
         </div>
         <div className="topbar-right">
           <div id="nova-lang-slot" className="lang-slot" aria-label="Language" />
-          <span className="privacy-pill" title="The badge counts any non-GET or cross-origin request. NOVA PDF never uploads documents.">
+          <span className="privacy-pill" title="Your documents are never uploaded. Page translation (language switch) only sends on-screen text to Google Translate — never your file.">
             <Icon name="shield" size={13} />
             {netRequests === 0 ? '0 uploads' : `${netRequests} external`}
           </span>
@@ -163,14 +174,14 @@ export function App() {
             <span>Search tools</span>
             <kbd>Ctrl K</kbd>
           </button>
-          <button className="icon-btn" onClick={() => inputRef.current?.click()} title="Open PDF (Ctrl+O)">
+          <button className="icon-btn" onClick={() => inputRef.current?.click()} title="Open PDF (Ctrl+O)" aria-label="Open PDF">
             <Icon name="plus" size={18} />
           </button>
-          <button className="icon-btn" onClick={() => setActivity((a) => !a)} title="Activity">
+          <button className="icon-btn" onClick={() => setActivity((a) => !a)} title="Activity" aria-label="Activity">
             <Icon name="layers" size={18} />
             {running > 0 && <span className="dot" />}
           </button>
-          <button className="icon-btn" onClick={() => actions.toggleTheme()} title="Toggle theme">
+          <button className="icon-btn" onClick={() => actions.toggleTheme()} title="Toggle theme" aria-label="Toggle light / dark theme">
             <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={17} />
           </button>
         </div>
@@ -191,6 +202,7 @@ export function App() {
               <span
                 className="tab-close"
                 role="button"
+                aria-label="Close file"
                 onClick={(e) => {
                   e.stopPropagation();
                   releasePdfDoc(f.id);
@@ -208,10 +220,14 @@ export function App() {
       </div>
 
       <div className="app-body">
-        <aside className="rail">
+        <aside className={`rail ${railOpen ? 'open' : ''}`}>
+          <div className="rail-mobile-head">
+            <span>Tools</span>
+            <button className="icon-btn" onClick={() => setRailOpen(false)} aria-label="Close tools"><Icon name="close" size={16} /></button>
+          </div>
           <div className="rail-search">
             <Icon name="search" size={15} />
-            <input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="Find a tool…" />
+            <input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="Find a tool…" aria-label="Find a tool" />
             {filter && (
               <button onClick={() => setFilter('')} aria-label="Clear">
                 <Icon name="close" size={12} />
@@ -229,7 +245,7 @@ export function App() {
                     <button
                       key={t.id}
                       className={`rail-item ${tool?.id === t.id ? 'active' : ''}`}
-                      onClick={() => openTool(t.id)}
+                      onClick={() => { openTool(t.id); setRailOpen(false); }}
                       title={t.short}
                     >
                       <span className="rail-icon"><Icon name={toolIcons[t.id] || 'file'} size={16} /></span>
@@ -266,12 +282,13 @@ export function App() {
           {files.length > 0 && <span className="muted">{formatBytes(files.reduce((s, f) => s + f.size, 0))} in memory</span>}
         </div>
         <div className="status-right">
-          <span>Nothing leaves this tab</span>
+          <span>No document leaves this tab</span>
           <span className="status-sep" />
           <span className="muted">v1.0</span>
         </div>
       </footer>
 
+      {railOpen && <div className="rail-backdrop" onClick={() => setRailOpen(false)} />}
       {activity && <ActivityDrawer onClose={() => setActivity(false)} />}
       {paletteOpen && <CommandPalette onClose={() => actions.setPalette(false)} onTool={openTool} onOpen={() => inputRef.current?.click()} />}
       {passwordRequest && <PasswordDialog fileName={passwordRequest.fileName} onSubmit={(v) => passwordRequest.resolve(v)} />}
