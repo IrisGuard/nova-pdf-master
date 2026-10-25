@@ -15,7 +15,12 @@ const SECURITY_HEADERS = {
 
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'wasm-unsafe-eval' 'sha256-T+1uM5DTaZ+nHs9xnj6cjMzyPKVqLMo/letZc8zfL4I='",
+  // `static.cloudflareinsights.com` is the zone's own Web Analytics beacon. On
+  // the 404 document Cloudflare injects it at the edge, and a CSP that does not
+  // name it turns every not-found page into a console error (Atlas user walk,
+  // 2026-10-23). It is Cloudflare's cookieless beacon — no document ever leaves
+  // the browser, so the "0 uploads" promise is untouched.
+  "script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com 'sha256-L4e9wXyNuw3MFiBUoeOiZSvbbSOZb1lvgRGz7+DFuMo='",
   "worker-src 'self' blob:",
   "child-src 'self' blob:",
   // Inline <style> elements and injected sheets are gone (real .css files), so

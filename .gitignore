@@ -7,5 +7,3 @@ tests/page-audit/*.png
 tests/page-audit/report.json
 *.log
 qa-*.log
-
-.qa-tmp/

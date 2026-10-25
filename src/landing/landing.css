@@ -1,5 +1,24 @@
 /* NOVA PDF — landing surface */
 
+/* A visit that is going to be translated is painted once, in the visitor's
+   language. Translating after the first paint reflowed the hero (Greek is
+   ~24% taller than English) and Chrome scored it as CLS 0.20; the text arrived
+   in English and jumped. Now the pre-paint script sets `data-nv-pending` and
+   this rule holds the content back for the few hundred milliseconds the
+   translation needs. The pure-CSS animation is the failsafe: if the translator
+   never runs (offline, blocked Google endpoint, JS error) the content is shown
+   anyway — it never stays hidden. */
+html[data-nv-pending] main {
+  visibility: hidden;
+  animation: nv-pending-reveal 1ms linear 1.5s forwards;
+}
+
+@keyframes nv-pending-reveal {
+  to {
+    visibility: visible;
+  }
+}
+
 @font-face {
   font-family: 'Nova Sans';
   src: url('/fonts/inter-var.woff2') format('woff2');
@@ -349,18 +368,43 @@ html[data-theme='light'] .theme-btn .theme-moon {
   font-weight: 560;
 }
 
+/* The heartbeat ring is a pseudo-element that only animates `transform` and
+   `opacity`. Animating `box-shadow` directly forced a full style recalculation
+   and repaint every frame (Lighthouse measured 2.4 s of Style & Layout on the
+   landing page); the compositor handles transform/opacity for free. */
 .pulse {
+  position: relative;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--acid);
   box-shadow: 0 0 0 4px var(--acid-soft);
-  animation: breathe 2.4s ease-in-out infinite;
+}
+
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--acid);
+  opacity: 0.55;
+  transform: scale(1);
+  animation: breathe 2.4s ease-out infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes breathe {
-  50% {
-    box-shadow: 0 0 0 7px rgba(201, 255, 77, 0.04);
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
   }
 }
 

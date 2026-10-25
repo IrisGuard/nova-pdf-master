@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 4310",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build", "postbuild": "node scripts/sync-csp-hash.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4311",
     "deploy": "npm run build && wrangler deploy",
     "test:node": "node tests/node/core.test.mjs",

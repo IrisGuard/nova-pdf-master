@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>(function(){try{var t=localStorage.getItem('nova-pdf-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}})();</script>
+    <script>(function(){try{var d=document.documentElement;var t=localStorage.getItem('nova-pdf-theme');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);var l=new URLSearchParams(location.search).get('hl')||localStorage.getItem('nova_pdf_lang')||navigator.language||'';if(l&&String(l).toLowerCase().split('-')[0]!=='en')d.setAttribute('data-nv-pending','');}catch(e){}})();</script>
     <title>NOVA PDF — the local-first PDF workstation</title>
     <meta
       name="description"

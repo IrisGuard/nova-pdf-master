@@ -541,28 +541,44 @@
     var list = document.createElement('div');
     panel.appendChild(list);
     var buttons = [];
+    var built = false;
 
-    LANGS.forEach(function (l) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'nv-lang-btn';
-      b.setAttribute('data-nova-lang-option', l[0]);
-      b.setAttribute('translate', 'no');
-      b.setAttribute('aria-label', l[1] + (l[2] !== l[1] ? ' — ' + l[2] : ''));
-      b.innerHTML = l[1] + (l[2] !== l[1] ? ' <small>' + l[2] + '</small>' : '');
-      b.addEventListener('click', function () {
-        window.__novaLastRun = setLang(l[0]);
-        wrap.open = false;
+    /* The 109 language buttons are built on the first open, not on load.
+       Building them up front cost a ~300 ms long task on every page visit
+       (109 elements + listeners) even for the ~99% of visitors who never open
+       the dropdown, and it landed inside the interaction window. */
+    function buildList() {
+      if (built) return;
+      built = true;
+      LANGS.forEach(function (l) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'nv-lang-btn';
+        b.setAttribute('data-nova-lang-option', l[0]);
+        b.setAttribute('translate', 'no');
+        b.setAttribute('aria-label', l[1] + (l[2] !== l[1] ? ' — ' + l[2] : ''));
+        b.innerHTML = l[1] + (l[2] !== l[1] ? ' <small>' + l[2] + '</small>' : '');
+        b.addEventListener('click', function () {
+          window.__novaLastRun = setLang(l[0]);
+          wrap.open = false;
+        });
+        list.appendChild(b);
+        buttons.push({ el: b, hay: (l[0] + ' ' + l[1] + ' ' + l[2]).toLowerCase() });
       });
-      list.appendChild(b);
-      buttons.push({ el: b, hay: (l[0] + ' ' + l[1] + ' ' + l[2]).toLowerCase() });
-    });
+      syncCurrent(wrap);
+      if (input.value.trim()) filter(input.value);
+    }
 
-    input.addEventListener('input', function () {
-      var q = input.value.trim().toLowerCase();
+    function filter(value) {
+      var q = String(value || '').trim().toLowerCase();
       buttons.forEach(function (item) {
         item.el.style.display = !q || item.hay.indexOf(q) >= 0 ? 'block' : 'none';
       });
+    }
+
+    input.addEventListener('input', function () {
+      buildList();
+      filter(input.value);
     });
 
     wrap.addEventListener('toggle', function () {
@@ -570,6 +586,7 @@
         panel.style.transform = '';
         return;
       }
+      buildList();
       input.focus();
       /* Clamp inside the viewport with a transform. Flipping left/right does not
          work here: a header with backdrop-filter is the containing block, so
@@ -584,7 +601,7 @@
     });
 
     wrap.appendChild(panel);
-    return { wrap: wrap };
+    return { wrap: wrap, buildList: buildList };
   }
 
   function syncCurrent(root) {
@@ -678,13 +695,34 @@
   };
   window.__novaLangName = langName;
 
+  /* The pre-paint script marks `data-nv-pending` when this visit is going to be
+     translated, and the platform's CSS keeps the content hidden until the
+     translation lands (so the page is painted once, in the right language,
+     instead of jumping from English to Greek and scoring a layout shift).
+     Clearing the flag is idempotent and always runs — including on failure. */
+  function releasePending() {
+    var d = document.documentElement;
+    if (d && d.hasAttribute('data-nv-pending')) d.removeAttribute('data-nv-pending');
+  }
+
   function boot() {
     mount();
-    detect().then(function (code) {
-      if (code && code !== 'en') setLang(code);
-      else updateUi();
-      startObserver();
-    });
+    /* Observe before the first run, not after it. React (the workbench) renders
+       its whole UI while the first translation of the boot splash is still in
+       flight; when the observer was attached afterwards it missed that render
+       and the workbench stayed English. The observer only watches childList, so
+       our own text-node updates cannot feed it. */
+    startObserver();
+    detect()
+      .then(function (code) {
+        if (code && code !== 'en') return setLang(code);
+        updateUi();
+        return null;
+      })
+      .catch(function () {
+        /* translation unavailable — show the English page */
+      })
+      .then(releasePending);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

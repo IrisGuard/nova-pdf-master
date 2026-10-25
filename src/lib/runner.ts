@@ -98,7 +98,16 @@ export async function runTool(
 
 export function friendlyError(e: Error): string {
   const m = e?.message || String(e);
+  // Order matters. "Set a user password, an owner password, or both" is the
+  // Protect tool telling the user it has nothing to encrypt with — mapping that
+  // through the generic /password/ branch below printed "The password you
+  // entered is not correct." on a form the user had not typed into yet
+  // (Atlas user walk, 2026-10-23). Say what actually happened.
   if (/not password protected/i.test(m)) return 'This PDF is not password protected.';
+  if (/set a user password|owner password, or both/i.test(m))
+    return 'Choose an open password, an owner password, or both — then run Protect again.';
+  if (/password and owner password must differ|must be different/i.test(m))
+    return 'The open password and the owner password must be different.';
   if (/NEEDS PASSWORD|Password incorrect|password/i.test(m)) return 'The password you entered is not correct.';
   if (/encrypt/i.test(m)) return 'This PDF is encrypted and cannot be read without the password.';
   if (/Invalid PDF|No PDF header|Failed to parse/i.test(m)) return 'This file is not a valid PDF, or it is damaged. Try Clean & repair.';

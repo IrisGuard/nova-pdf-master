@@ -114,16 +114,19 @@ async function waitChanged(page, selector, old) {
   check('English is first', list[0][0] === 'en', list[0] && list[0][1]);
   check('Ελληνικά is second', list[1][0] === 'el', list[1] && list[1][1]);
 
-  const options = await page.locator('[data-nova-lang-option]').count();
-  check('109 options are in the DOM', options === 109, `${options} buttons`);
-
   const label = (await page.locator('#nova-lang-slot summary').innerText()).trim();
   check('the header pill is the compact 🌐 only', label === '🌐', JSON.stringify(label));
+
+  // The 109 buttons are built on first open (a ~300 ms long task on every page
+  // load otherwise), so the dropdown is opened before counting them.
+  await page.locator('#nova-lang-slot summary').click();
+  await page.locator('[data-nova-lang-option="el"]').first().waitFor({ timeout: 10000 });
+  const options = await page.locator('[data-nova-lang-option]').count();
+  check('109 options are built when the dropdown opens', options === 109, `${options} buttons`);
 
   const english = await text(page, '.hero h1');
 
   // search field filters by initials / name / code
-  await page.locator('#nova-lang-slot summary').click();
   await page.locator('[data-nova-lang-search]').fill('ελλ');
   const greekHits = await page.locator('[data-nova-lang-option]:visible').count();
   check('search "ελλ" finds Greek', greekHits === 1, `${greekHits} hit(s)`);

@@ -34,7 +34,15 @@ const before = await page.evaluate(() => ({
 console.log('mobile before =', JSON.stringify(before));
 await page.screenshot({ path: path.join(tmp, 'mobile-merge.png') });
 
-// drawer navigation happens in a separate pass (see mobile-drawer proof)
+// drawer navigation works
+await page.click('.menu-btn');
+await page.waitForTimeout(500);
+const drawer = await page.evaluate(() => ({ cls: document.querySelector('.rail')?.className, backdrop: !!document.querySelector('.rail-backdrop') }));
+console.log('drawer =', JSON.stringify(drawer));
+await page.screenshot({ path: path.join(tmp, 'mobile-drawer.png') });
+await page.keyboard.press('Escape');
+await page.click('.rail-backdrop').catch(() => {});
+await page.waitForTimeout(400);
 
 await page.setInputFiles('input[type=file]', [a, b]);
 await page.waitForTimeout(1800);
@@ -58,6 +66,3 @@ else {
 }
 await page.screenshot({ path: path.join(tmp, 'mobile-result.png') });
 await browser.close();
-
-
-
