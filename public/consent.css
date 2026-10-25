@@ -1,0 +1,94 @@
+/* NOVA PDF — analytics consent banner (Owner 2026-10-25).
+ * Lives in its own stylesheet because the CSP is `style-src 'self'`:
+ * an inline <style> block would be blocked (and would need a hash).
+ * Colours use the site's own tokens with hard fallbacks for the boot screen.
+ */
+
+.npdf-consent {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2147483000;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  justify-content: space-between;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px 18px;
+  border: 1px solid var(--line, #23262e);
+  border-radius: 14px;
+  background: var(--panel, #0b0d12);
+  color: var(--ink, #e8eaf0);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  font: 400 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.npdf-consent__text {
+  margin: 0;
+  flex: 1 1 340px;
+  min-width: 240px;
+  color: inherit;
+  opacity: 0.92;
+}
+
+.npdf-consent__actions {
+  display: flex;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.npdf-consent__btn {
+  appearance: none;
+  cursor: pointer;
+  padding: 9px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--line, #23262e);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.npdf-consent__btn:hover {
+  border-color: var(--ink, #e8eaf0);
+}
+
+.npdf-consent__btn:focus-visible {
+  outline: 2px solid #c9ff4d;
+  outline-offset: 2px;
+}
+
+.npdf-consent__btn--allow {
+  background: #c9ff4d;
+  border-color: #c9ff4d;
+  color: #07080b;
+}
+
+.npdf-consent__btn--allow:hover {
+  background: #d7ff7a;
+  border-color: #d7ff7a;
+  color: #07080b;
+}
+
+@media (max-width: 560px) {
+  .npdf-consent {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    padding: 14px;
+  }
+
+  .npdf-consent__actions {
+    width: 100%;
+  }
+
+  .npdf-consent__btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}

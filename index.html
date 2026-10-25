@@ -38,6 +38,23 @@
     <link rel="stylesheet" href="/src/landing/landing.css" />
     <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/nova-translate.css" />
+    <link rel="stylesheet" href="/consent.css" />
+    <!--
+      Google Analytics 4 (Owner, 2026-10-25): "βάλε και αυτό στο Nova PDF".
+      Measurement ID G-FKX19KJGNL. It reports PAGE views only — the tool never
+      sends a file, a filename, extracted text or metadata to it, because every
+      operation runs in this tab and no document data exists in the analytics
+      calls. The CSP names exactly these origins and nothing more.
+
+      Loaded behind the same consent gate as Nova AI Apps (G-8ZXWZ34KG6): the
+      gtag.js script is injected by /analytics-consent.js only after the visitor
+      presses "Allow analytics", because EU visitors cannot be tracked otherwise.
+      Deliberately NOT an inline snippet here: an inline tag needs a CSP hash and
+      the hash sync already failed once for exactly this script (fixed in
+      scripts/sync-csp-hash.mjs on the same day).
+    -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <script src="/analytics-consent.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -107,7 +124,7 @@
           {
             "@type": "Question",
             "name": "Do you keep analytics or logs?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No document content, filenames or metadata is transmitted. The application is static and performs no telemetry calls." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Only page-level analytics, and only if you press “Allow analytics” on the banner. We count visits to know which tools are used; declining loads nothing at all. Your document, its filename and its text never leave the tab, so there is nothing about your file to send — you can confirm in DevTools → Network." }
           }
         ]
       }
@@ -399,7 +416,7 @@
           </details>
           <details>
             <summary>Do you keep analytics or logs?</summary>
-            <p>No document content, filenames or metadata is transmitted. The application is static and performs no telemetry calls.</p>
+            <p>Only page-level analytics, and only if you press “Allow analytics” on the banner — declining loads nothing. We count visits to see which tools are useful. Your document, its filename and its text never leave this tab, so there is nothing about your file to send.</p>
           </details>
         </div>
       </section>

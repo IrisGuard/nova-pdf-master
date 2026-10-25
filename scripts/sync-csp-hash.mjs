@@ -80,5 +80,18 @@ let headers = fs.readFileSync(headersPath, "utf8");
 headers = headers.replace(/^(  Content-Security-Policy: )(.+)$/m, (_all, lead, csp) => lead + withHashes(csp.trim()));
 fs.writeFileSync(headersPath, headers);
 
+// The asset layer serves dist/, and `_headers` is copied there DURING the build —
+// i.e. BEFORE this postbuild step runs. Writing only public/_headers left the
+// deployed copy with the previous hash list, so a CSP that looked correct in the
+// source blocked the newly added inline script at the edge (GA4 snippet,
+// 2026-10-25: script-src shipped 1 of 2 hashes). Keep the built copy in step.
+const distHeaders = path.join(root, "dist/_headers");
+if (fs.existsSync(distHeaders)) {
+  let built = fs.readFileSync(distHeaders, "utf8");
+  built = built.replace(/^(  Content-Security-Policy: )(.+)$/m, (_all, lead, csp) => lead + withHashes(csp.trim()));
+  fs.writeFileSync(distHeaders, built);
+}
+
 console.log(`sync-csp-hash: ${hashes.length} inline script hash(es) synced`);
+console.log(`               public/_headers + dist/_headers updated`);
 for (const h of hashes) console.log("  ", h);

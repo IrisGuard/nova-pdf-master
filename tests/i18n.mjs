@@ -67,6 +67,27 @@ async function waitTranslated(page, code) {
     code,
     { timeout: 60000 },
   );
+  await settle(page, code);
+}
+
+/**
+ * The app marks <html data-nv-pending> while it waits for the translation
+ * round-trip, so the visitor never sees English flash first. While pending is
+ * set the copy is hidden and innerText is '', which the old assertions happily
+ * read as "translated" — three cold-load checks failed that way on 2026-10-25
+ * even though the live page translated correctly. Wait for the flag to clear
+ * before anything reads the text.
+ */
+async function settle(page, code) {
+  try {
+    await page.waitForFunction(
+      (c) => !document.documentElement.hasAttribute('data-nv-pending') && document.documentElement.getAttribute('lang') === c,
+      code,
+      { timeout: 60000 },
+    );
+  } catch {
+    /* let the caller's assertion report the real state */
+  }
 }
 
 /** The lang attribute flips before the network round-trips finish; wait for real text. */
@@ -76,7 +97,9 @@ async function waitChanged(page, selector, old) {
       ([sel, prev]) => {
         const el = document.querySelector(sel);
         if (!el) return false;
-        return el.innerText.replace(/\s+/g, ' ').trim() !== prev;
+        const now = el.innerText.replace(/\s+/g, ' ').trim();
+        // '' means the copy is still hidden behind data-nv-pending — not a translation.
+        return now !== '' && now !== prev;
       },
       [selector, old],
       { timeout: 60000 },

@@ -20,7 +20,7 @@ const CSP = [
   // name it turns every not-found page into a console error (Atlas user walk,
   // 2026-10-23). It is Cloudflare's cookieless beacon — no document ever leaves
   // the browser, so the "0 uploads" promise is untouched.
-  "script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com 'sha256-L4e9wXyNuw3MFiBUoeOiZSvbbSOZb1lvgRGz7+DFuMo='",
+  "script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com https://www.googletagmanager.com 'sha256-L4e9wXyNuw3MFiBUoeOiZSvbbSOZb1lvgRGz7+DFuMo='",
   "worker-src 'self' blob:",
   "child-src 'self' blob:",
   // Inline <style> elements and injected sheets are gone (real .css files), so
@@ -28,11 +28,15 @@ const CSP = [
   // the redaction boxes and progress bars; CSP3 scopes that to attr only.
   "style-src 'self'",
   "style-src-attr 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://www.googletagmanager.com https://www.google-analytics.com",
   "font-src 'self'",
   // §0n: the free, client-side Google translation endpoints. A proxy through
   // the Worker is forbidden — the edge IP gets 429; the visitor's browser does not.
-  "connect-src 'self' https://clients5.google.com https://translate.googleapis.com",
+  // + Google Analytics 4 (G-FKX19KJGNL, Owner 2026-10-25): page-level hits only.
+  //   /g/collect is where GA4 actually posts, on google-analytics.com and its
+  //   regional hosts, so the wildcard is scoped to that domain family and nothing
+  //   else. No document data is ever in those requests.
+  "connect-src 'self' https://clients5.google.com https://translate.googleapis.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
   "media-src 'self' blob:",
   "object-src 'none'",
   "frame-ancestors 'none'",
@@ -85,7 +89,9 @@ export default {
 
     if (path === '/' || path.endsWith('.html') || path.endsWith('/')) {
       // `no-transform` also stops the edge from injecting its analytics beacon,
-      // so the "no telemetry" promise is true in the browser as well.
+      // so the page carries exactly the tags we put in the HTML — nothing added
+      // in transit. (Google Analytics is declared by hand in index.html and named
+      // in connect-src; Cloudflare's own beacon stays out of the HTML path.)
       headers.set('Cache-Control', 'public, max-age=0, must-revalidate, no-transform');
     } else if (path.startsWith('/assets/') || path.startsWith('/pdfjs/') || path.startsWith('/tesseract/') || path.startsWith('/tessdata/') || path.startsWith('/fonts/') || path.startsWith('/pdf.worker')) {
       headers.set('Cache-Control', 'public, max-age=31536000, immutable');
