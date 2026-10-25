@@ -38,23 +38,21 @@
     <link rel="stylesheet" href="/src/landing/landing.css" />
     <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/nova-translate.css" />
-    <link rel="stylesheet" href="/consent.css" />
     <!--
       Google Analytics 4 (Owner, 2026-10-25): "βάλε και αυτό στο Nova PDF".
-      Measurement ID G-FKX19KJGNL. It reports PAGE views only — the tool never
-      sends a file, a filename, extracted text or metadata to it, because every
-      operation runs in this tab and no document data exists in the analytics
-      calls. The CSP names exactly these origins and nothing more.
+      Measurement ID G-FKX19KJGNL. Always-on (no consent banner, Owner order
+      2026-10-25): every visit AND every click/navigation is counted, so the
+      same visitor returning 30 times a day still shows as 30 real hits.
+      It reports PAGE VIEWS + CLICKS only — the tool never sends a file, a
+      filename, extracted text or metadata, because every operation runs in this
+      tab. The CSP names exactly these origins and nothing more.
 
-      Loaded behind the same consent gate as Nova AI Apps (G-8ZXWZ34KG6): the
-      gtag.js script is injected by /analytics-consent.js only after the visitor
-      presses "Allow analytics", because EU visitors cannot be tracked otherwise.
-      Deliberately NOT an inline snippet here: an inline tag needs a CSP hash and
-      the hash sync already failed once for exactly this script (fixed in
-      scripts/sync-csp-hash.mjs on the same day).
+      Loaded immediately by /analytics.js (no gating). External file on purpose:
+      an inline snippet needs a CSP hash and the hash sync already failed once
+      for exactly this script (fixed in scripts/sync-csp-hash.mjs same day).
     -->
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-    <script src="/analytics-consent.js" defer></script>
+    <script src="/analytics.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
