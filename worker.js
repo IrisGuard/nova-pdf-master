@@ -49,6 +49,16 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
+    // Canonical host (Owner 2026-10-25): www.pdf.novaecosystem.live redirects
+    // once to the bare host, so both spellings reach the platform and the
+    // canonical URL stays unique (§0ag.1).
+    const host = url.hostname.toLowerCase();
+    if (host.startsWith('www.')) {
+      const canonical = new URL(url.toString());
+      canonical.hostname = host.slice(4);
+      return Response.redirect(canonical.toString(), 301);
+    }
+
     // §0n auto-language: the visitor's country decides the first language when
     // neither ?hl= nor a saved choice nor the browser locale says otherwise.
     if (url.pathname === '/api/geo') {
