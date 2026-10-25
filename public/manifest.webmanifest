@@ -3,6 +3,7 @@
   "short_name": "NOVA PDF",
   "description": "Merge, split, sign, redact, compress, convert and OCR PDFs entirely in your browser. Files never leave your device.",
   "id": "/app/",
+  "lang": "en",
   "start_url": "/app/",
   "scope": "/",
   "display": "standalone",

@@ -1,7 +1,7 @@
 {
   "name": "NOVA PDF tool catalogue",
   "canonical": "https://pdf.novaecosystem.live/app/",
-  "count": 32,
+  "count": 34,
   "tools": [
     { "id": "merge", "name": "Merge PDFs", "group": "Organise", "description": "Combine several PDFs into one document in a chosen order." },
     { "id": "split", "name": "Split PDF", "group": "Organise", "description": "Split by page ranges, fixed chunks, single pages or maximum output size." },
